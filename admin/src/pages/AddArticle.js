@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react'
-import marked, { use } from 'marked'
+import marked from 'marked'
 import '../styles/AddArticle.css'
 import {Row,Col,Input,Select,Button,DatePicker, message} from 'antd'
 import axios from 'axios'
@@ -15,12 +15,16 @@ export default function AddArticle(props){
   const [introducemd,setIntroducemd] = useState()            //简介的markdown内容
   const [introducehtml,setIntroducehtml] = useState('等待编辑') //简介的html内容
   const [showDate,setShowDate] = useState()   //发布日期
-  const [updateDate,setUpdateDate] = useState() //修改日志的日期
   const [typeInfo ,setTypeInfo] = useState([]) // 文章类别信息
   const [selectedType,setSelectType] = useState('文章类型') //选择的文章类别
 
   useEffect(()=>{
     getTypeInfo()
+    let tmpId = props.match.params.id
+    if(tmpId){
+      setArticleId(tmpId)
+      getArticleById(tmpId)
+    }
   },[])
 
   marked.setOptions({
@@ -131,6 +135,25 @@ export default function AddArticle(props){
     }
   }
 
+  const getArticleById = (id)=>{
+    axios(
+      servicePath.getArticleById+id,{
+      withCredentials:true
+    }).then(
+      res=>{
+        let articleInfo = res.data.data[0]
+        setArticleTitle(articleInfo.title)
+        setArticleContent(articleInfo.article_content)
+        let html = marked(articleInfo.article_content)
+        setMarkdownContent(html)
+        setIntroducemd(articleInfo.introduce)
+        let tmpInt = marked(articleInfo.introduce)
+        setIntroducehtml(tmpInt)
+        setShowDate(articleInfo.addTime)
+        setSelectType(articleInfo.typeId)
+      }
+    )
+  }
   return(
     <div>
       <Row gutter={5}>
@@ -146,7 +169,12 @@ export default function AddArticle(props){
             </Col>
             <Col span={4}>
               &nbsp;
-              <Select defaultValue={selectedType} size="large" onChange={selectTypeHandler}>
+              <Select 
+                defaultValue={selectedType} 
+                size="large" 
+                value={selectedType}
+                onChange={selectTypeHandler}
+              >
                 {
                   typeInfo.map((item,index)=>{
                     return (<Option key={index} value={item.id}>{item.typeName}</Option>)
@@ -162,6 +190,7 @@ export default function AddArticle(props){
                 className="markdown-content"
                 rows={35}
                 placeholder="文章内容"
+                value={articleContent}
                 onChange={changeContent}
               />
             </Col>
@@ -183,6 +212,7 @@ export default function AddArticle(props){
               <br/>
               <TextArea rows={4}
                         placeholder="文章简介"
+                        value={introducemd}
                         onChange={changeIntroduce}
               >
               </TextArea>
