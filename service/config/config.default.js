@@ -44,15 +44,14 @@ module.exports = appInfo => {
   };
 
   config.security = {
-    csrf:{
-      enable: false
-    },
-    domainWhiteList:['*']
+    csrf:{enable: false},
+    domainWhiteList:['http://127.0.0.1:3000','http://127.0.0.1:7001'],
   }
 
   config.cors = {
-    origin:'*',
-    allowMethods:'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
+    // origin: '*',
+    credentials: true, //允许cookie跨域
+    allowMethods:'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
   }
   
   return {
