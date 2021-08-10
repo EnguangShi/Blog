@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import {Row,Col,List,Icon} from 'antd'
+import {Row,Col,List,Icon,BackTop} from 'antd'
 import axios from 'axios'
 import Header from '../components/Header'
 import Author from '../components/Author'
@@ -64,6 +64,7 @@ export default function Home(list) {
         </Col>
       </Row>
       <Footer />
+      <BackTop />
     </div>
   )
 }

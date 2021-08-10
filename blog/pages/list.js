@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import Head from 'next/head'
-import {Row,Col,List,Icon,Breadcrumb} from 'antd'
+import {Row,Col,List,Icon,Breadcrumb, BackTop} from 'antd'
 import Header from '../components/Header'
 import Author from '../components/Author'
 import Advert from '../components/Advert'
@@ -81,6 +81,7 @@ export default function MyList(list) {
         </Col>
       </Row>
       <Footer />
+      <BackTop />
     </div>
   )
 }

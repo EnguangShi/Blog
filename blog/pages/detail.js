@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import {Row,Col,Icon,Breadcrumb,Affix} from 'antd'
+import {Row,Col,Icon,Breadcrumb,Affix, BackTop} from 'antd'
 import axios from 'axios'
 import Header from '../components/Header'
 import Author from '../components/Author'
@@ -75,6 +75,7 @@ export default function Detail(props) {
         </Col>
       </Row>
       <Footer />
+      <BackTop />
     </div>
   )
 }
