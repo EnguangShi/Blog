@@ -11,12 +11,12 @@ export default function AddArticle(props){
   const [articleId,setArticleId] = useState(0)  // 文章的ID，如果是0说明是新增加，如果不是0，说明是修改
   const [articleTitle,setArticleTitle] = useState('')   //文章标题
   const [articleContent , setArticleContent] = useState('')  //markdown的编辑内容
-  const [markdownContent, setMarkdownContent] = useState('预览内容') //html内容
+  const [markdownContent, setMarkdownContent] = useState('') //html内容
   const [introducemd,setIntroducemd] = useState()            //简介的markdown内容
-  const [introducehtml,setIntroducehtml] = useState('等待编辑') //简介的html内容
+  const [introducehtml,setIntroducehtml] = useState('') //简介的html内容
   const [showDate,setShowDate] = useState()   //发布日期
   const [typeInfo ,setTypeInfo] = useState([]) // 文章类别信息
-  const [selectedType,setSelectType] = useState('文章类型') //选择的文章类别
+  const [selectedType,setSelectType] = useState('Categories') //选择的文章类别
 
   useEffect(()=>{
     getTypeInfo()
@@ -57,7 +57,7 @@ export default function AddArticle(props){
       withCredentials:true
     }).then(
       res=>{
-        if(res.data.data=='没有登录'){
+        if(res.data.data=='No Login'){
           localStorage.removeItem('openId')
           props.history.push('/')
         }else{
@@ -73,22 +73,22 @@ export default function AddArticle(props){
 
   const saveArticle = ()=>{
     if(!selectedType){
-      message.error('请选择文章类型')
+      message.error('Please choose a category')
       return false
-    } else if (selectedType=='文章类型') {
-      message.error('请选择文章类型')
+    } else if (selectedType=='Categories') {
+      message.error('Please choose a category')
       return false
     } else if (!articleTitle) {
-      message.error('请输入文章标题')
+      message.error('Please add a title')
       return false
     } else if (!articleContent) {
-      message.error('请输入文章内容')
+      message.error('Please add the content')
       return false
     } else if (!introducemd) {
-      message.error('请输入文章简介')
+      message.error('Please add the introduction')
       return false
     } else if (!showDate) {
-      message.error('请选择发布日期')
+      message.error('Please choose a published date')
       return false
     }
     let dataProps = {}
@@ -110,9 +110,9 @@ export default function AddArticle(props){
         res=>{
           setArticleId(res.data.insertId)
           if(res.data.isSuccess){
-            message.success('文章发布成功')
+            message.success('Published Successfully')
           } else {
-            message.error('文章发布失败')
+            message.error('Fail to publish')
           }
         }
       )
@@ -126,9 +126,9 @@ export default function AddArticle(props){
       }).then(
         res=>{
           if(res.data.isSuccess){
-            message.success('文章保存成功')
+            message.success('Saved Successfully')
           } else {
-            message.error('文章保存失败')
+            message.error('Fail to save')
           }
         }
       )
@@ -163,7 +163,7 @@ export default function AddArticle(props){
               <Input
                 value={articleTitle}
                 onChange={e=>{setArticleTitle(e.target.value)}}
-                placeholder="博客标题"
+                placeholder="Add Title"
                 size="large"
               />  
             </Col>
@@ -189,7 +189,7 @@ export default function AddArticle(props){
               <TextArea
                 className="markdown-content"
                 rows={35}
-                placeholder="文章内容"
+                placeholder="Add Content"
                 value={articleContent}
                 onChange={changeContent}
               />
@@ -204,14 +204,18 @@ export default function AddArticle(props){
         <Col span={6}>
           <Row>
             <Col span={24}>
-              <Button size="large">暂存文章</Button>&nbsp;
-              <Button type="primary" size="large" onClick={saveArticle}>发布文章</Button>
+              <Button type="primary" size="large" onClick={saveArticle}>Publish</Button>&nbsp;
+              <DatePicker 
+                  onChange={(date,dateString)=>{setShowDate(dateString)}}
+                  placeholder="Published Date"
+                  size="large"
+                />
               <br/>
             </Col>
             <Col span={24}>
               <br/>
-              <TextArea rows={4}
-                        placeholder="文章简介"
+              <TextArea rows={8}
+                        placeholder="Add Introduction"
                         value={introducemd}
                         onChange={changeIntroduce}
               >
@@ -219,15 +223,6 @@ export default function AddArticle(props){
               <br/><br/>
               <div className="introduce-html"
                 dangerouslySetInnerHTML={{__html:introducehtml}}>
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className="date-select">
-                <DatePicker 
-                  onChange={(date,dateString)=>{setShowDate(dateString)}}
-                  placeholder="发布日期"
-                  size="large"
-                />
               </div>
             </Col>
           </Row>

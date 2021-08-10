@@ -18,6 +18,7 @@ export default function MyList(list) {
   const [mylist,setMyList] = useState(list.data)
   useEffect(()=>{
     setMyList(list.data)
+    console.log(list)
   })
   const renderer = new marked.Renderer()
   marked.setOptions({
@@ -32,6 +33,9 @@ export default function MyList(list) {
       return hljs.highlightAuto(code).value
     }
   })
+
+
+
   return (
     <div>
       <Head>
@@ -43,15 +47,15 @@ export default function MyList(list) {
           <div className="bread-div">
             <Breadcrumb>
               <Breadcrumb.Item>
-                <a href="/">首页</a>
+                <a href="/">Home</a>
               </Breadcrumb.Item>
               <Breadcrumb.Item>
-                视频教程
+                {list.data[0] ? list.data[0].typeName : ""}
               </Breadcrumb.Item>
             </Breadcrumb>
           </div>
             <List 
-             header={<div>最新日志</div>}
+             header={<div>Latest Published ↓</div>}
              itemLayout="vertical"
              dataSource={mylist}
              renderItem={item=>(
@@ -64,7 +68,6 @@ export default function MyList(list) {
                  <div className="list-icon">
                    <span><Icon type="calendar" />{item.addTime}</span>
                    <span><Icon type="folder" />{item.typeName}</span>
-                   <span><Icon type="fire" />{item.view_count}人</span>
                  </div>
                  <div className="list-context"
                  dangerouslySetInnerHTML={{__html:marked(item.introduce)}}></div>
@@ -83,6 +86,7 @@ export default function MyList(list) {
 }
 
 MyList.getInitialProps = async(context)=>{
+  console.log(context.query.id)
   let id = context.query.id
   const promise = new Promise((resolve)=>{
     axios(servicePath.getListById+id).then(

@@ -15,6 +15,7 @@ import servicePath from '../config/apiUrl'
 
 
 export default function Detail(props) {
+  let articleContent=props.article_content
   const tocify = new Tocify()
   const renderer = new marked.Renderer()
   renderer.heading = function(text,level,raw){
@@ -44,19 +45,18 @@ export default function Detail(props) {
         <Col className="comm-left" xs={24} sm={24} md={16} lg={18} xl={14}>
           <div className="bread-div">
             <Breadcrumb>
-              <Breadcrumb.Item><a href="/">首页</a></Breadcrumb.Item>
-              <Breadcrumb.Item><a href="/">视频教程</a></Breadcrumb.Item>
-              <Breadcrumb.Item>文章名</Breadcrumb.Item>
+              <Breadcrumb.Item><a href="/">Home</a></Breadcrumb.Item>
+              <Breadcrumb.Item>{props.typeName}</Breadcrumb.Item>
+              <Breadcrumb.Item>{props.title}</Breadcrumb.Item>
             </Breadcrumb>
           </div>
           <div>
             <div className="detailed-title">
-              React实战视频教程
+              {props.title}
             </div>
             <div className="list-icon center">
-              <span><Icon type="calendar" />2019-06-28</span>
-              <span><Icon type="folder" />视频教程</span>
-              <span><Icon type="fire" />1亿人</span>
+              <span><Icon type="calendar" />{props.addTime}</span>
+              <span><Icon type="folder" />{props.typeName}</span>
             </div>
             <div className="detailed-content"
               dangerouslySetInnerHTML={{__html:html}}>
@@ -80,12 +80,10 @@ export default function Detail(props) {
 }
 
 Detail.getInitialProps = async(context)=>{
-  console.log(context.query.id)
   let id = context.query.id
   const promise = new Promise((resolve)=>{
     axios(servicePath.getArticleById+id).then(
       (res)=>{
-        console.log(res)
         resolve(res.data.data[0])
       }
     )

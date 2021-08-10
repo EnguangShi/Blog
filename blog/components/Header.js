@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Row,Col,Menu,Icon} from 'antd'
+import {Button,Row,Col,Menu,Icon} from 'antd'
 import Router from 'next/router'
 import Link from 'next/link'
 import axios from 'axios'
@@ -28,18 +28,22 @@ export default function Header() {
         }
     }
 
+    const returnHome=()=>{
+        Router.push('/')
+    }
+
     return (
         <div className="header">
             <Row type="flex" justify="center">
-                <Col xs={24} sm={24} md={10} lg={15} xl={12}>
-                    <span className="header-logo">标题</span>
-                    <span className="header-text">描述描述描述描述</span>
+                <Col xs={24} sm={24} md={10} lg={15} xl={11}>
+                    <Button className="header-logo" type="link" onClick={returnHome}>Blog Name</Button>
+                    <span className="header-text">Description</span>
                 </Col>
-                <Col xs={0} sm={0} md={14} lg={8} xl={6}>
+                <Col xs={0} sm={0} md={14} lg={8} xl={7}>
                     <Menu mode="horizontal" onClick={handleClick}>
                         <Menu.Item key="0">
                             <Icon type="home" />
-                            首页
+                            Home
                         </Menu.Item>
                         {
                             navArray.map((item)=>{

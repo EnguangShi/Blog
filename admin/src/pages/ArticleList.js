@@ -25,18 +25,18 @@ export default function ArticleList(props) {
 
   const delArticle = (id)=>{
     confirm({
-      title:'确定删除?',
-      content:'如果需要删除文章，请点击OK',
+      title:'Are you sure?',
+      content:'The post cannot be restored after the deletion',
       onOk(){
         axios(servicePath.delArticle+id,{withCredentials:true}).then(
           res=>{
-            message.success('删除成功')
+            message.success('Deleted Successfully')
             getList()
           }
         )
       },
       onCancel(){
-        message.success('已取消')
+        message.info('Deletion cancelled')
       }
     })
   }
@@ -50,20 +50,17 @@ export default function ArticleList(props) {
       <List 
         header={
           <Row className="list-div">
-            <Col span={8}>
-              <b>标题</b>
+            <Col span={12}>
+              <b>Title</b>
             </Col>
             <Col span={4}>
-              <b>类别</b>
+              <b>Category</b>
             </Col>
             <Col span={4}>
-              <b>发布时间</b>
+              <b>Published Date</b>
             </Col>
             <Col span={4}>
-              <b>浏览量</b>
-            </Col>
-            <Col span={4}>
-              <b>操作</b>
+              <b>Actions</b>
             </Col>
           </Row>
         }
@@ -72,7 +69,7 @@ export default function ArticleList(props) {
         renderItem={item=>(
           <List.Item>
             <Row className="list-div">
-              <Col span={8}>
+              <Col span={12}>
                 {item.title}
               </Col>
               <Col span={4}>
@@ -82,11 +79,8 @@ export default function ArticleList(props) {
                 {item.addTime}
               </Col>
               <Col span={4}>
-                {item.view_count}
-              </Col>
-              <Col span={4}>
-                <Button type="primary" onClick={()=>{updateArticle(item.id)}}>修改</Button>&nbsp;
-                <Button onClick={()=>{delArticle(item.id)}}>删除</Button>
+                <Button type="primary"  onClick={()=>{updateArticle(item.id)}}>Edit</Button>&nbsp;
+                <Button onClick={()=>{delArticle(item.id)}}>Trash</Button>
               </Col>
             </Row>
           </List.Item>

@@ -13,11 +13,11 @@ export default function Login(props){
   const checkLogin=()=>{
     setIsLoading(true)
     if(!userName){
-      message.error('用户名不能为空')
+      message.error('Username cannot be empty')
       setTimeout(()=>{setIsLoading(false)},500)
       return false
     } else if (!password){
-      message.error('密码不能为空')
+      message.error('Password cannot be empty')
       setTimeout(()=>{setIsLoading(false)},500)
       return false
     }
@@ -33,11 +33,11 @@ export default function Login(props){
     }).then(
       res=>{
         setIsLoading(false)
-        if(res.data.data=='登录成功'){
+        if(res.data.data=='Login successfully'){
           localStorage.setItem('openId',res.data.openId)
           props.history.push('/index')
         } else {
-          message.error('用户名密码错误')
+          message.error('The username or password is incorrect')
         }
       }
     )
@@ -49,7 +49,7 @@ export default function Login(props){
           <Input 
             id="userName"
             size="large"
-            placeholder="Enter your username"
+            placeholder="Username"
             prefix={<Icon type="user" style={{color:'rgba(0,0,0,.25)'}}/>}
             onChange={(e)=>{setUserName(e.target.value)}}
           />
@@ -57,7 +57,7 @@ export default function Login(props){
           <Input.Password 
             id="password"
             size="large"
-            placeholder="Enter your password"
+            placeholder="Password"
             prefix={<Icon type="key" style={{color:'rgba(0,0,0,.25)'}}/>}
             onChange={(e)=>{setPassword(e.target.value)}}
           />

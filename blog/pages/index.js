@@ -38,7 +38,7 @@ export default function Home(list) {
       <Row className="comm-main" type="flex" justify="center">
         <Col className="comm-left" xs={24} sm={24} md={16} lg={18} xl={14}>
            <List 
-             header={<div>最新日志</div>}
+             header={<div>Latest Published ↓</div>}
              itemLayout="vertical"
              dataSource={mylist}
              renderItem={item=>(
@@ -51,7 +51,6 @@ export default function Home(list) {
                  <div className="list-icon">
                    <span><Icon type="calendar" />{item.addTime}</span>
                    <span><Icon type="folder" />{item.typeName}</span>
-                   <span><Icon type="fire" />{item.view_count}人</span>
                  </div>
                  <div className="list-context" 
                  dangerouslySetInnerHTML={{__html:marked(item.introduce)}}></div>

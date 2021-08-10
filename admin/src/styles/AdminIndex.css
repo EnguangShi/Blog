@@ -1,7 +1,11 @@
 .logo {
   height: 32px;
   margin: 16px;
-  background: rgba(255, 255, 255, 0.3);
+  /* background: rgba(255, 255, 255, 0.3); */
+  color: #1e90ff;
+  font-size: 1.4rem;
+  text-align: left;
+  padding-left: 4%;
 }
 
 .site-layout .site-layout-background {

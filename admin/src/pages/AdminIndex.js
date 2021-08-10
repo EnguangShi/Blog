@@ -27,40 +27,38 @@ export default function AdminIndex(props){
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-        <div className="logo" />
+        <div className="logo">Blog Name</div>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-          <Menu.Item key="1"> 
-            <Icon type="piechart"/>
-            <span>工作台</span>
-          </Menu.Item>
-          <Menu.Item key="2">
-            <Icon type="desktop" />
-            <span>添加文章</span>
-          </Menu.Item>
           <SubMenu 
             key="sub1"
             onClick={handleClickArticle}
             title={
               <span>
-                <Icon type="user" />
-                <span>文章管理</span>
+                <Icon type="file" />
+                <span>Posts</span>
               </span>
               }
           >
-            <Menu.Item key="addArticle">添加文章</Menu.Item>
-            <Menu.Item key="articleList">文章列表</Menu.Item>
+            <Menu.Item key="addArticle">
+              <span>
+                <Icon type="plus" />
+                <span>Add New</span>
+              </span>
+            </Menu.Item>
+            <Menu.Item key="articleList">
+              <span>
+                <Icon type="container" />
+                <span>All Posts</span>
+              </span>
+            </Menu.Item>
           </SubMenu>
-          <Menu.Item key="9">
-              <Icon type="file" />
-              <span>留言管理</span>
-          </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
         <Content style={{ margin: '0 16px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>后台管理系统</Breadcrumb.Item>
-            <Breadcrumb.Item>工作台</Breadcrumb.Item>
+            <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+            <Breadcrumb.Item>Posts</Breadcrumb.Item>
           </Breadcrumb>
           <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
             <div>
@@ -71,7 +69,7 @@ export default function AdminIndex(props){
             </div>
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>JSPang.com</Footer>
+        <Footer style={{ textAlign: 'center' }}>domain-name.com</Footer>
       </Layout>
     </Layout>
   );

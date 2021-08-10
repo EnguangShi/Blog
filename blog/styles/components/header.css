@@ -10,6 +10,8 @@
     color: #1e90ff;
     font-size: 1.4rem;
     text-align: left;
+    padding-left: 0px;
+    padding-right: 3px;
 }
 
 .header-text{
