@@ -1,3 +1,17 @@
+# MyBlog
+1. start phpMyAdmin
+2. $cd service
+3. $yarn start
+4. create a new shell
+5. $cd blog
+6. $yarn dev
+7. change the url from localhost:3000 to 127.0.0.1:3000
+8. create a new shell
+9. $cd admin
+10. $npm start
+11. change the url from localhost:3001 to 127.0.0.1:3001
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

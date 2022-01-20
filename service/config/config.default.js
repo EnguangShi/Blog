@@ -45,7 +45,7 @@ module.exports = appInfo => {
 
   config.security = {
     csrf:{enable: false},
-    domainWhiteList:['http://127.0.0.1:3000','http://127.0.0.1:7001'],
+    domainWhiteList:['http://127.0.0.1:3000','http://127.0.0.1:7001','http://127.0.0.1:3001'],
   }
 
   config.cors = {
